@@ -28,6 +28,7 @@ class BasicAuth extends Epay
         $this->hashed           = isset($params['hashed'])      ? $params['hashed'] : false;
         $this->template         = $this->generateXml();
         $this->appendix         = $this->generateAppendix();
+        $this->backLink         = isset($params['back_link']) ? $params['back_link'] : null; 
     }
 
     /**
@@ -69,7 +70,7 @@ class BasicAuth extends Epay
     public function generateUrl()
     {
         $request = new Request();
-        $back_link          = config('epay.EPAY_BACK_LINK');
+        $back_link          = $this->backLink ? $this->backLink : config('epay.EPAY_BACK_LINK');
         $post_link          = config('epay.EPAY_POST_LINK');
         $form_template      = config('epay.EPAY_FORM_TEMPLATE');
         $test_mode          = config('epay.pay_test_mode');
